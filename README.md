@@ -1,89 +1,155 @@
-# Bank Management System
+# Bank Client Management System
 
-## Overview
-The **Bank Management System** is a comprehensive software solution designed to manage banking operations, user accounts, and client transactions efficiently. Built using C++, the system includes a variety of features such as managing clients, transactions, user roles, and more, all encapsulated within a modular and extendable codebase.
-
----
+The Bank Client Management System is a C++ application designed to manage bank clients, their accounts, transactions, and user permissions. It provides functionalities such as client registration, account updates, deposits, withdrawals, fund transfers, and user authentication with role-based access control.
 
 ## Features
+### Main Menue Screen (clsMainMenueScreen)
+ - **List Clients**
+ - **Add New Client**
+ - **Delete Client**
+ - **Update Client Information**
+ - **Find Client**
+ - **Transactions**
+ - **Manage Users**
+ - **Login/Register**
+ - **Logout**
 
-### Clients Management
-- **Add New Client**: Add a new client to the system with details such as name, email, phone, and account balance.
-- **Update Client**: Modify existing client information.
-- **Delete Client**: Remove clients from the system.
-- **View Client List**: Display all registered clients with their details.
-- **Find Client**: Search for a specific client by their account number.
+### Client Management
+- **Add new clients**: Create new client profiles with details such as first name, last name, email, phone, account number, PIN code, and balance.
+- **Update client details**: Modify client information (e.g., name, email, phone, PIN code, account balance).
+- **Delete clients**: Remove clients from the system after confirmation.
+- **Search for clients**: Find clients by account number or PIN code.
+- **View client list**: Display a formatted list of all clients in the system.
 
-### Transactions
-- **Deposit Funds**: Deposit money into a client account.
-- **Withdraw Funds**: Withdraw money from a client account, ensuring sufficient balance.
-- **Transfer Funds**: Transfer money between client accounts.
-- **Transaction Log**: View a log of all transfers, including details such as sender, receiver, amount, and date.
-- **View Total Balances**: Display the total balance across all client accounts.
+### Account Operations
+- **Deposit funds**: Add funds to a client's account.
+- **Withdraw funds**: Deduct funds from a client's account (if sufficient balance is available).
+- **Transfer funds**: Move funds between two accounts.
+- **View total balances**: Display the total balance of all clients in the system.
 
-### User Management
-- **Add New User**: Register new system users with specific roles and permissions.
-- **Update User**: Edit details of existing users.
-- **Delete User**: Remove users from the system.
-- **View User List**: Display all users with their respective roles and permissions.
-- **Login Register**: Monitor user login activities and permissions.
+### Transaction Logging
+- **Transfer logs**: Maintain a log of all fund transfers, including sender, receiver, amount, and timestamps.
 
----
+### User Management (clsUser)
+- **User authentication**: Log in with a username and password.
+- **Role-based permissions**: Assign permissions to users (e.g., manage clients, view logs, perform transactions).
+- **User registration**: Add new users with specific permissions.
+- **Login logs**: Track user login activity with timestamps.
 
-## Classes and Their Responsibilities
+### Add New Client Screen (clsAddNewClientScreen)
+- **Input validation**: Validate user input for fields such as name, email, phone, PIN code, and account balance.
+- **Add new client**: Save new client details to the system after validation.
+- **Duplicate account check**: Ensure that the account number is unique.
 
-### Core Classes
-- **clsBankClient**: Manages client details, including account number, PIN code, and balance. Handles client-related operations such as adding, updating, and deleting clients.
-- **clsUser**: Manages system users and their permissions, login activities, and authentication.
-- **clsScreen**: Base class providing shared functionalities for different screen types.
+### Client List Screen (clsClientListScreen)
+- **View client list**: Display a formatted table of all clients in the system.
+- **Access control**: Only users with the `pListClients` permission can view the client list.
 
-### Screens
-- **clsMainMenuScreen**: The main interface for accessing various features of the system.
-- **clsTransactionMenuScreen**: Handles transaction-related functionalities, including deposits, withdrawals, and transfers.
-- **clsClientListScreen**: Displays a list of all clients.
-- **clsAddNewClientScreen**: Manages the addition of new clients.
-- **clsDeleteClientScreen**: Handles client deletion.
-- **clsUpdateClientScreen**: Allows updating of client information.
-- **clsFindClientScreen**: Enables searching for a client by account number.
-- **clsManageUsersScreen**: Provides functionalities for managing system users.
-- **clsDepositScreen**: Manages deposit operations.
-- **clsWithdrawScreen**: Handles withdrawal transactions.
-- **clsTransferScreen**: Manages fund transfers between accounts.
-- **clsTransferRegisterScreen**: Displays a detailed log of all fund transfers.
+### Delete Client Screen (clsDeleteClientScreen)
+- **Delete clients**: Remove a client from the system after confirming the action.
+- **Access control**: Only users with the `pDeleteClient` permission can delete clients.
+- **Client details**: Display the client's details before deletion for confirmation.
 
-### Utility Classes
-- **clsInputRead**: Provides methods for reading and validating user inputs.
-- **clsInputValidate**: Contains validation logic for user inputs, such as name, email, phone number, and PIN code.
-- **clsString**: Offers string manipulation utilities, such as case conversion, trimming, and splitting.
-- **clsUtil**: Includes helper methods for mathematical calculations, text conversions, and date utilities.
+### Find Client Screen (clsFindClientScreen)
+- **Search for clients**: Find a client by their account number.
+- **Display client details**: Show the client's full details, including name, email, phone, account number, PIN code, and balance.
+- **Access control**: Only users with the `pFindClient` permission can access this screen.
+- **User validation**: Ensure the username exists before displaying the user's information.
+- **Error handling**: Catch any errors during the search and display an appropriate message.
 
----
+### Update Client Screen (clsUpdateClientScreen)
+- **Update client details**: Modify a client's information, including name, email, phone, PIN code, and account balance.
+- **Input validation**: Validate user input for fields such as name, email, phone, PIN code, and account balance.
+- **Access control**: Only users with the `pUpdateClient` permission can access this screen.
 
-## Technical Details
+### Transaction Menu Screen (clsTransactionMenueScreen)
+- **Deposit funds**: Add funds to a client's account.
+- **Withdraw funds**: Deduct funds from a client's account (if sufficient balance is available).
+- **Transfer funds**: Move funds between two accounts.
+- **View transfer logs**: Display a log of all fund transfers.
+- **View total balances**: Display the total balance of all clients in the system.
+- **Access control**: Only users with the `pTransactions` permission can access this screen.
 
-### File Management
-- **Clients.txt**: Stores client information persistently.
-- **TransferLog.txt**: Logs all transfer transactions.
+### Deposit Screen (clsDepositScreen)
+- **Deposit funds**: Add funds to a client's account.
+- **Client details**: Display the client's details before and after the deposit.
+- **Confirmation**: Confirm the deposit transaction before proceeding.
+- **Access control**: Only users with the `pTransactions` permission can access this screen.
 
-### Enumerations
-- **clsBankClient::enSaveResults**: Defines the results of save operations (e.g., succeeded, failed due to empty object, failed due to duplicate account).
-- **clsUtil::enPrimeOrNotPrime**: Determines if a number is prime.
-- **clsUtil::enCharacterType**: Specifies types of characters for generating random strings.
+### Withdraw Screen (clsWithdrawScreen)
+- **Withdraw funds**: Deduct funds from a client's account (if sufficient balance is available).
+- **Client details**: Display the client's details before and after the withdrawal.
+- **Confirmation**: Confirm the withdrawal transaction before proceeding.
+- **Access control**: Only users with the `pTransactions` permission can access this screen.
 
-### Features Breakdown
+### Transfer Screen (clsTransferScreen)
+- **Transfer funds**: Move funds between two client accounts.
+- **Client details**: Display the details of both the sender and receiver before and after the transfer.
+- **Confirmation**: Confirm the transfer transaction before proceeding.
+- **Access control**: Only users with the `pTransactions` permission can access this screen.
 
-#### Client Operations
-- `clsBankClient::AddNewClient`: Creates a new client with initial balance.
-- `clsBankClient::UpdateClient`: Updates client details such as email and phone.
-- `clsBankClient::DeleteClient`: Flags a client for deletion and removes them from persistent storage.
+### Transfer Register Screen (clsTransferRegisterScreen)
+- **View transfer logs**: Display a log of all fund transfers, including sender, receiver, amount, and timestamps.
+- **Access control**: Only users with the `pTransferRegister` permission can access this screen.
 
-#### Transaction Operations
-- `clsBankClient::Deposit`: Increases the account balance by a specified amount.
-- `clsBankClient::Withdraw`: Decreases the account balance, ensuring sufficient funds are available.
-- `clsBankClient::Transfer`: Transfers a specified amount to another client account and logs the transaction.
+### Total Balances Screen (clsTotalBalanccesScreen)
+- **View total balances**: Display a formatted table of all clients' balances and the total balance of the system.
+- **Access control**: Only users with the `pTransactions` permission can access this screen.
 
-#### User Operations
-- `clsUser::AddNewUser`: Registers a new system user with permissions.
-- `clsUser::UpdateUser`: Edits user information.
-- `clsUser::DeleteUser`: Removes a user from the system.
-- `clsUser::Login`: Authenticates a user based on username and password.
+### Login Screen (clsLoginScreen)
+- **User authentication**: Log in with a username and password.
+- **Failed login attempts**: Limit the number of failed login attempts to 3 before locking the user out.
+- **Access control**: Redirects authenticated users to the main menu.
+- **Login error handling**: If a user enters an incorrect username or password, they are allowed 3 trials before being locked out.
+
+### Manage Users Screen (clsManageUsersScreen)
+- **Manage users**: Perform operations such as listing, adding, deleting, updating, and finding users.
+- **Access control**: Only users with the `pManageUser` permission can access this screen.
+
+### Person Management (clsPerson)
+- **Store personal details**: Manage first name, last name, email, and phone number.
+- **Communication methods**: Send emails, faxes, and SMS (currently placeholders for future implementation).
+- **Full name retrieval**: Get the full name of a person by combining first and last names.
+
+### Add New User Screen (clsAddNewUserScreen)
+- **User Registration**: Add new users to the system with a unique username.
+- **Permission Assignment**: Assign role-based permissions (e.g., view clients, add clients, delete clients).
+- **Input validation**: Ensure valid input for user details such as name, email, phone, and password.
+- **User information display**: Show user details after successful creation.
+
+### Increase Client Balance (clsIncrease)
+- **Increase balance**: Modify the balance of a client's account by adding a specified amount.
+- **Access control**: Only users with the `pIncreaseBalance` permission can access this screen.
+- **Confirmation**: Confirm the increase in balance transaction before proceeding.
+
+### Find User Screen (clsFindUserScreen)
+- **Search for users**: Find a user by their username.
+- **Display user details**: Show the user's full details, including username, full name, email, phone, password, and permissions.
+- **Access control**: Only users with the `pFindUser` permission can access this screen.
+- **User validation**: Ensure the username exists before displaying the user's information.
+- **Error handling**: Catch any errors during the search and display an appropriate message.
+
+### List Users Screen (clsListUsersScreen)
+- **List all users**: Display a formatted table with all users in the system.
+- **User details**: Show each user's username, full name, phone number, email, password, and permissions.
+- **No users check**: Display a message if no users are available in the system.
+- **Formatted output**: The user list is printed in a neat, tabular format using `setw` for proper alignment.
+
+### Delete User Screen (clsDeleteUserScreen)
+- **Delete users**: Remove a user from the system after confirming the action.
+- **User details**: Display the user's details before deletion for confirmation.
+- **Confirmation**: Ask for confirmation before proceeding with the deletion.
+- **Error handling**: Catch any errors during the deletion process and display an appropriate message.
+- **Access control**: Only users with the `pDeleteUser` permission can delete users.
+
+### Login Register Screen (clsLoginRegisterScreen)
+- **View login register records**: Display a formatted list of login attempts, including date/time, username, password, and permissions.
+- **Access control**: Only users with the `pLoginRegister` permission can view login register records.
+- **Formatted output**: The login register records are printed in a neat, tabular format using `setw` for proper alignment.
+- **No records check**: Display a message if no login records are available in the system.
+
+## Technologies Used
+- C++
+- Object-Oriented Programming (OOP)
+- Input Validation Techniques
+- File Handling for Saving User and Client Data
